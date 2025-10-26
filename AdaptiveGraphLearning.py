@@ -74,9 +74,6 @@ class AdaptiveGraphLearning(nn.Module):
         cols = cols[mask]
         values = values.view(-1)[mask]
 
-        # Construct sparse adjacency matrix in COO format
-        edge_index = torch.stack([rows, cols], dim=0)
-        A_learned = torch.sparse_coo_tensor(edge_index, values, (N, N))
 
         # Convert to dense for row-normalization
         A_dense = A_learned.to_dense()
@@ -114,5 +111,6 @@ class AdaptiveGraphLearning(nn.Module):
         A_final = torch.sparse_coo_tensor(indices, values, A_raw.size())
 
         return A_final
+
 
 
